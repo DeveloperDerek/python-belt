@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+<!--------------NAVBAR----------------------->
+        <nav class='navbar mt-3 pl-0'>
+            <h1>Hello {{user.first_name}}! These are your stats!</h1>
+            <u>
+                <a href='/wishes'>Dashboard</a>
+            </u>
+            <u>
+                <a href='/logout'>Logout</a>
+            </u>
+        </nav>
+<!----------STATS------------------------->
+        <div class="row mt-4">
+            <h2>Total wishes granted so far for all users: {{wishes.count}}</h2>
+        </div>
+        <div class="row mt-4">
+            <h3>Your granted wishes: {{pos}} </h3>
+        </div>
+        <div class="row my-2">
+            <h3>Your pending wishes: {{neg}} </h3>
+        </div>
+    </div>
+</body>
+</html>

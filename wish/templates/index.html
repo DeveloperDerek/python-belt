@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class='container'>
+        <div class="row mt-3 mb-5">
+            <h1>Welcome! Sign in to make a wish!</h1>
+        </div>
+        <div class='row'>
+<!------------REGISTRATION------------------------------>
+            <div class="col border mr-3">
+                <h1 class='text-center'>Registration</h1>
+                <form action="/adding_user" method="post">
+                    {%csrf_token%}
+                    <div class="form-group row">
+                        <label class='col-3'>First Name</label>
+                        <input class="form-control col mr-4" type="text" name="first_name">
+                    </div>
+                    <div class="form-group row">
+                        <label class='col-3'>Last Name</label>
+                        <input class="col form-control mr-4" type="text" name="last_name">
+                    </div>
+                    <div class="form-group row">
+                        <label class='col-3'>Email</label>
+                        <input class="col form-control mr-4" type="email" name="email">
+                    </div>
+                    <div class="form-group row">
+                        <label class='col-3'>Password</label>
+                        <input class="col form-control mr-4" type="password" name="password">
+                    </div>
+                    <div class="form-group row">
+                        <label class='col-3'>Confirm PW</label>
+                        <input class="col form-control mr-4" type="password" name="cpassword">
+                    </div>
+                    <button class="btn-lg float-right mr-2 my-3">Register</button>
+                </form>
+<!----------------USER MANAGER ---------------------------------->
+                <div class='row text-danger'>
+                    {%if messages%}
+                    <ul class="list-unstyled d-inline-block">
+                        {%for message in messages%}
+                        <li class="text-left">
+                            {{ message }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+<!--------------LOGIN-------------------------------------------->
+            <div class='col border h-75 ml-3'>
+                <h1 class='text-center'>Login</h1>
+                <form action='/login' method='POST'>
+                {%csrf_token%}
+                    <div class='form-group row'>
+                        <label class='col-3'>Email</label>
+                        <input class='col form-control mr-4' type='text' name='email'>
+                    </div>
+                    <div class="form-group row">
+                        <label class='col-3'>Password</label>
+                            <input class='col form-control mr-4' type='password' name='password'>
+                    </div>
+                    <button class="btn-lg float-right mb-4 mt-1">Log In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

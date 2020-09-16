@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+<!----------NAVBAR----------------------->
+        <nav class='navbar navbar-expand-md navbar-light mt-3'>
+            <div class="col-6">
+                <h1 class='navbar-brand mb-0'>Hello {{user.first_name}}</h1>
+            </div>
+            <div class="col">
+                <u>
+                    <a href='/logout'>Logout</a>
+                </u>
+            </div>
+            <div class="col">
+                <a href='/stats' style="background-color:rgba(182, 69, 216, 0.694); color:black;" class='btn-lg border border'>
+                    View Stats
+                </a>
+            </div>
+            <div class="col justify-content-end">
+                <a href='/wishes/new' class='btn-lg btn-light border'>
+                    Make a wish!
+                </a>
+            </div>
+        </nav>
+<!-----------YOUR WISH LIST---------------->
+        <div class="row my-3">
+            <h3>Your wish list:</h3>
+        </div>
+        <div class="row">
+            <table class='col border'>
+                <tr class='row'>
+                    <th class='col-6 pl-5'>Item</th>
+                    <th class='col-3'>Date added</th>
+                    <th class='col'>Actions</th>
+                </tr>
+                {% for wish in wishes %}
+                {% if user.id == wish.wished_by.id and wish.grant == False %}
+                <tr class='row my-3'>
+                    <td class='col-6 pl-5'>{{wish.wish}}</td>
+                    <td class='col-3'>{{wish.created_at}}</td>
+                    <td class='col'>
+                        <u><a class='px-2' href='/remove/{{wish.id}}'>Remove</a></u>
+                        <u><a class='px-2' href='/edit/{{wish.id}}'>Edit</a></u>
+                        <u><a class='px-2' href='/grant_wish/{{wish.id}}'>Granted</a></u>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+<!-----------GRANTED WISHES---------------->
+        <div class="row my-3">
+            <h3>Granted Wishes:</h3>
+        </div>
+        <div class="row">
+            <table class='col border'>
+                <tr class='row'>
+                    <th class='col pl-5'>Item</th>
+                    <th class='col'>Wisher</th>
+                    <th class='col'>Date added</th>
+                    <th class='col'>Date Granted</th>
+                    <th class='col-1'>Likes</th>
+                    <th class='col-1'>Actions</th>
+                </tr>
+                {% for wish in wishes %}
+                {% if wish.grant == True %}
+                <tr class='row my-3'>
+                    <td class='col pl-5'>{{wish.wish}}</td>
+                    <td class='col'>{{wish.wished_by.first_name}}</td>
+                    <td class='col'>{{wish.created_at}}</td>
+                    <td class='col'>{{wish.updated_at}}</td>
+                    <td class='col-1'>{{wish.liked_by.count}}</td>
+                    <td class='col-1'>
+                        {% if user in wish.liked_by.all  %}
+                        <u>
+                            <a href='/unliking_wish/{{wish.id}}'>Unlike</a>
+                        </u>
+                        {% else %}                        
+                        <u>
+                            <a href='/liking_wish/{{wish.id}}'>Like</a>
+                        </u>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
